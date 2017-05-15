@@ -4,12 +4,43 @@
   <meta charset="UTF-8">
   <title>Hangman</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Arvo:400,700|Montserrat:300,400,700" rel="stylesheet">
   <script src="js/script.js"></script>
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
-    <h1>HANGMAN</h1>
+    <h1>H __ N G M __ N </h1>
+    <!-- <h1>HANGMAN</h1> -->
+
   </header>
+  <div class="category">
+    <h2 id="showcategory">The category is Movie Titles.</h2>
+  </div>
+
+  <div class="separater">
+  </div>
+
+  <main>
+    <div class="left">
+      <div id="playerOne">
+        <h3>Player One</h3>
+        <input class="input" type="text" placeholder="Enter a word" />
+        <input class="submit" name="enter" type="submit" value="Enter"/>
+      </div>
+
+      <div id="playerTwo">
+        <h3>Player Two</h3>
+        <input class="guess" type="text" placeholder="Enter a letter" />
+        <input class="submit" name="guess" type="submit" value="Guess"/>
+        <p class="lives">You have 6 body parts left.</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <p class="wordDisplay"></p>
+    </div>
+  </main>
 </body>
 </html>
