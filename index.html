@@ -12,17 +12,20 @@
 <body>
   <header>
     <h1>H __ N G M __ N </h1>
-    <!-- <h1>HANGMAN</h1> -->
 
   </header>
   <div class="category">
-    <h2 id="showcategory">The category is Movie Titles.</h2>
+    <h2 id="showcategory">The category is Disney Movie.</h2>
   </div>
 
   <div class="separater">
   </div>
 
   <main>
+    <div class="right">
+      <p class="wordDisplay"></p>
+    </div>
+
     <div class="left">
       <div id="playerOne">
         <h3>Player One</h3>
@@ -34,13 +37,13 @@
         <h3>Player Two</h3>
         <input class="guess" type="text" placeholder="Enter a letter" />
         <input class="submit" name="guess" type="submit" value="Guess"/>
-        <p class="lives">You have 6 body parts left.</p>
+
       </div>
     </div>
+    <br>
+    <p class="lives">You have 6 body parts left.</p>
+    <br>
 
-    <div class="right">
-      <p class="wordDisplay"></p>
-    </div>
   </main>
 </body>
 </html>

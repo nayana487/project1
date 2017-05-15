@@ -6,9 +6,10 @@ $(document).ready(function() {
   $('#playerOne .submit').click(function() {
     var wordInput = $('#playerOne .input').val();
     words.push(wordInput)
-    console.log(words);
+    $('#playerOne .input').val("");
+    // console.log(words);
     var splitWord = words[0].split("");
-    console.log(splitWord);
+    // console.log(splitWord);
 
     // var nospace = splitWord.filter(function(entry) {
     //   return entry.trim() != '';
@@ -26,9 +27,15 @@ $(document).ready(function() {
 
 
   $('#playerTwo .submit').click(function() {
-    var guessInput = $('#playerTwo .input').val();
+    var guessInput = $('#playerTwo .guess').val();
     values.push(guessInput)
-    console.log(values);
+    // console.log(values);
+    $('#playerTwo .guess').val("");
+
+    for (var i = 0; i < values.length; i++) {
+      console.log(values[i]);
+    }
+
   })
   //generate words randomly from array of pre-exisiting choices
   // var randomWord = words[Math.floor(Math.random() * words.length)];
