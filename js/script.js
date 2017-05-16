@@ -1,42 +1,64 @@
 
 $(document).ready(function() {
   var words = [];
-  var values = [];
+  var letters = [];
+  var guess = [];
+  var guesses = [];
+  var splitWord ;
+  var lives = 6 ;
+  var category = ["Disney Movie", "Cars", "Breakfast Cereal"]
 
+//show lives
+  $('.lives').html(`You have 6 body parts left.`);
+
+//player one enters word and display as dashes
   $('#playerOne .submit').click(function() {
     var wordInput = $('#playerOne .input').val();
     words.push(wordInput)
     $('#playerOne .input').val("");
-    // console.log(words);
-    var splitWord = words[0].split("");
-    // console.log(splitWord);
+    splitWord = words[0].split("");
 
     // var nospace = splitWord.filter(function(entry) {
     //   return entry.trim() != '';
     // });
 
     for (var i = 0; i < splitWord.length; i++) {
-      if (splitWord[i] === " ") {
-        splitWord[i] = "\xa0\xa0 "
+      if (letters[i] === " ") {
+        letters[i] = "\xa0\xa0 "
       }else{
-      splitWord[i] = "_ "
+      letters[i] = "_ "
       }
     }
-    $('.wordDisplay').html(splitWord);
+    $('.wordDisplay').html(letters);
+    console.log(splitWord);
   })
 
-
+//player two enters letter that gets compared to values of P1's word
   $('#playerTwo .submit').click(function() {
     var guessInput = $('#playerTwo .guess').val();
-    values.push(guessInput)
-    // console.log(values);
+    guess.push(guessInput)
+
+    for (var i = 0; i < splitWord.length; i++) {
+      if (splitWord[i] === guessInput) {
+        splitWord[i] = guessInput + " ";
+        var correct = true;
+        console.log(splitWord[i]);
+      }
+    }
     $('#playerTwo .guess').val("");
 
-    for (var i = 0; i < values.length; i++) {
-      console.log(values[i]);
-    }
-
   })
+
+  // function printLetter() {
+  //   for (var i = 0; i < splitWord.length; i++) {
+  //     $('.wordDisplay').append(document.createTextNode(splitWord[i]));
+  //   }
+  // }
+
+
+
+
+
   //generate words randomly from array of pre-exisiting choices
   // var randomWord = words[Math.floor(Math.random() * words.length)];
   // console.log(randomWord);
