@@ -127,4 +127,10 @@ input {
 
 .message {
   color: red;
+  font-size: 18px;
+}
+
+.wordDisplay li{
+  display: inline;
+  list-style: none;
 }

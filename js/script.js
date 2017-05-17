@@ -4,12 +4,17 @@ $(document).ready(function() {
   var letters = [];
   var guess = [];
   var guesses = [];
-  var splitWord ;
+  var splitWord;
+  var wordLength = 0;
   var lives = 6 ;
-  var category = ["Disney Movie", "Cars", "Breakfast Cereal"]
+  var category = ["Disney Movie", "Car Brands", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chains", "Sodas", "Candy"]
+
+//generate category
+  var randomCategory = category[Math.floor(Math.random() * category.length)];
+  $('#showcategory').html(`The category is ${randomCategory}.`);
 
 //show lives
-  $('.lives').html(`You have 6 body parts left.`);
+  $('.lives').html(`You have ${lives} body parts left.`);
 
 //player one enters word and display as dashes
   $('#playerOne .submit').click(function() {
@@ -17,20 +22,28 @@ $(document).ready(function() {
     words.push(wordInput)
     $('#playerOne .input').val("");
     splitWord = words[0].split("");
+    wordLength = splitWord.length;
 
-    // var nospace = splitWord.filter(function(entry) {
-    //   return entry.trim() != '';
-    // });
 
-    for (var i = 0; i < splitWord.length; i++) {
-      if (letters[i] === " ") {
-        letters[i] = "\xa0\xa0 "
-      }else{
-      letters[i] = "_ "
+    printLetter();
+    function printLetter() {
+      for (var i = 0; i < splitWord.length; i++) {
+        if (splitWord[i] === " ") {
+          wordLength = wordLength - 1;
+          letters[i] = "\xa0\xa0"
+        }else{
+        letters[i] = "_ "
+        }
+        $('.wordDisplay').append(document.createTextNode(letters[i]));
       }
+      console.log(wordLength);
+      /*letters = letters.toString(); */
+      /*letters = letters.replace(/,/g, ""); */
+
+      // console.log(letters)
+      // console.log(splitWord);
     }
-    $('.wordDisplay').html(letters);
-    console.log(splitWord);
+
   })
 
 //player two enters letter that gets compared to values of P1's word
@@ -38,20 +51,41 @@ $(document).ready(function() {
     var guessInput = $('#playerTwo .guess').val();
     guess.push(guessInput)
 
+    var correct = false;
     for (var i = 0; i < splitWord.length; i++) {
       if (splitWord[i] === guessInput) {
-        splitWord[i] = guessInput + " ";
-        var correct = true;
-        console.log(splitWord[i]);
+        letters[i] = guessInput;
+        $('.wordDisplay').html(letters);
+         correct = true;
       }
     }
-    $('#playerTwo .guess').val("");
+    if(correct) {
+      wordLength = wordLength - 1;
+      alert(wordLength);
 
+    } else {
+      lives = lives - 1
+      $('.lives').html(`You have ${lives} body parts left.`);
+      alert("you wrong!!");
+    }
+
+    if(wordLength == 0) {
+      alert("you win");
+    }
+
+    if (lives == 0) {
+      $('.message').html(`You lost! Please try again.`);
+    }
+
+    $('#playerTwo .guess').val("");
   })
+  // var wordDisplay = $('.wordDisplay')
+  // wordDisplay = ""
+  // printLetter();
 
   // function printLetter() {
   //   for (var i = 0; i < splitWord.length; i++) {
-  //     $('.wordDisplay').append(document.createTextNode(splitWord[i]));
+  //     $('.wordDisplay').html(letters);;
   //   }
   // }
 
