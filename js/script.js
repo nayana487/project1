@@ -11,6 +11,11 @@ $(document).ready(function() {
   var playerTwoScore = 0;
   var category = ["Disney Movie", "Car Brand", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chain", "Soda", "Candy"]
 
+
+//gamestart scores
+  $('.scorenum2').html(playerTwoScore)
+  $('.scorenum1').html(playerOneScore);
+
 //reset game
   $('.reset').click(function() {
   location.reload();
@@ -26,7 +31,9 @@ $(document).ready(function() {
 //player one enters word
   $('#playerOne .submit').click(function() {
     var wordInput = $('#playerOne .input').val();
-    words.push(wordInput)
+    var wordLowerCase = wordInput.toLowerCase();
+
+    words.push(wordLowerCase)
     $('#playerOne .input').val("");
     splitWord = words[0].split("");
     wordLength = splitWord.length;
@@ -52,21 +59,22 @@ $(document).ready(function() {
 //player two enters letter that gets compared to values of P1's word
   $('#playerTwo .submit').click(function() {
     var guessInput = $('#playerTwo .guess').val();
+    var guessLowerCase = guessInput.toLowerCase();
 
   //same letter input can't be use twice by comparing number of indexOf. returns -1 for empty array.
-    if(guess.indexOf(guessInput) > -1) {
-      alert("same");
+    if(guess.indexOf(guessLowerCase) > -1) {
+      // alert("same");
       $('.message').html(`"${guessInput.toUpperCase()}" already guessed, please try again.`);
     } else{
-      alert("not same continue");
-      guess.push(guessInput);
+      // alert("not same continue");
+      guess.push(guessLowerCase);
 
     //letter is compared to array of word. if letter exists: display, if not: lose one life.
       var correct = false;
       var letterNum = 0;
       for (var i = 0; i < splitWord.length; i++) {
-        if (splitWord[i] === guessInput) {
-          letters[i] = guessInput;
+        if (splitWord[i] === guessLowerCase) {
+          letters[i] = guessLowerCase;
           letterNum = letterNum + 1;
           $('.wordDisplay').html(letters);
            correct = true;
@@ -74,30 +82,40 @@ $(document).ready(function() {
       }
       if(correct) {
         wordLength = wordLength - letterNum;
-        alert(wordLength);
+        // alert(wordLength);
 
       } else {
         lives = lives - 1
         $('.lives').html(`You have ${lives} body parts left!`);
-        alert("you wrong!!");
+        // alert("you wrong!!");
       }
 
       if(wordLength == 0) {
         $('.message').html(`Player Two wins!`)
         playerTwoScore = playerTwoScore + 1;
-        console.log(playerTwoScore);
         $('.scorenum2').html(playerTwoScore);
       }
 
       if (lives == 0) {
         $('.message').html(`Player One wins!`);
         playerOneScore = playerOneScore + 1;
-        console.log(playerOneScore);
         $('.scorenum1').html(playerOneScore);
       }
     }
 
     $('#playerTwo .guess').val("");
   })
+
+  // $('.reset').click(function() {
+  //   var words = [];
+  //   var letters = [];
+  //   var guess = [];
+  //   var guesses = [];
+  //   var splitWord;
+  //   var wordLength = 0;
+  //   var lives = 6 ;
+  // });
+
+
 
 })
