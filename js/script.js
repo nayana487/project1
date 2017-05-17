@@ -1,12 +1,14 @@
-  var guess = [];
+
 $(document).ready(function() {
   var words = [];
   var letters = [];
-
+  var guess = [];
   var guesses = [];
   var splitWord;
   var wordLength = 0;
   var lives = 6 ;
+  var playerOneScore = 0;
+  var playerTwoScore = 0;
   var category = ["Disney Movie", "Car Brand", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chain", "Soda", "Candy"]
 
 //reset game
@@ -19,7 +21,7 @@ $(document).ready(function() {
   $('#showcategory').html(`The category is ${randomCategory}.`);
 
 //show lives at gamestart
-  $('.lives').html(`You have ${lives} body parts left.`);
+  $('.lives').html(`You have ${lives} body parts.`);
 
 //player one enters word
   $('#playerOne .submit').click(function() {
@@ -51,41 +53,49 @@ $(document).ready(function() {
   $('#playerTwo .submit').click(function() {
     var guessInput = $('#playerTwo .guess').val();
 
+  //same letter input can't be use twice by comparing number of indexOf. returns -1 for empty array.
     if(guess.indexOf(guessInput) > -1) {
       alert("same");
       $('.message').html(`"${guessInput.toUpperCase()}" already guessed, please try again.`);
     } else{
-      alert("no same continue");
+      alert("not same continue");
       guess.push(guessInput);
 
+    //letter is compared to array of word. if letter exists: display, if not: lose one life.
       var correct = false;
-
+      var letterNum = 0;
       for (var i = 0; i < splitWord.length; i++) {
         if (splitWord[i] === guessInput) {
-
           letters[i] = guessInput;
+          letterNum = letterNum + 1;
           $('.wordDisplay').html(letters);
            correct = true;
         }
       }
       if(correct) {
-        wordLength = wordLength - 1;
+        wordLength = wordLength - letterNum;
         alert(wordLength);
 
       } else {
         lives = lives - 1
-        $('.lives').html(`You have ${lives} body parts left.`);
+        $('.lives').html(`You have ${lives} body parts left!`);
         alert("you wrong!!");
       }
 
       if(wordLength == 0) {
-        alert("you win");
+        $('.message').html(`Player Two wins!`)
+        playerTwoScore = playerTwoScore + 1;
+        console.log(playerTwoScore);
+        $('.scorenum2').html(playerTwoScore);
       }
 
       if (lives == 0) {
-        $('.message').html(`You lost! Please try again.`);
+        $('.message').html(`Player One wins!`);
+        playerOneScore = playerOneScore + 1;
+        console.log(playerOneScore);
+        $('.scorenum1').html(playerOneScore);
       }
-}
+    }
 
     $('#playerTwo .guess').val("");
   })
