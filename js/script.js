@@ -1,22 +1,27 @@
-
+  var guess = [];
 $(document).ready(function() {
   var words = [];
   var letters = [];
-  var guess = [];
+
   var guesses = [];
   var splitWord;
   var wordLength = 0;
   var lives = 6 ;
-  var category = ["Disney Movie", "Car Brands", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chains", "Sodas", "Candy"]
+  var category = ["Disney Movie", "Car Brand", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chain", "Soda", "Candy"]
 
-//generate category
+//reset game
+  $('.reset').click(function() {
+  location.reload();
+  });
+
+//generate category randomly
   var randomCategory = category[Math.floor(Math.random() * category.length)];
   $('#showcategory').html(`The category is ${randomCategory}.`);
 
-//show lives
+//show lives at gamestart
   $('.lives').html(`You have ${lives} body parts left.`);
 
-//player one enters word and display as dashes
+//player one enters word
   $('#playerOne .submit').click(function() {
     var wordInput = $('#playerOne .input').val();
     words.push(wordInput)
@@ -24,7 +29,7 @@ $(document).ready(function() {
     splitWord = words[0].split("");
     wordLength = splitWord.length;
 
-
+  //each letter of the word is printed/displayed as underscore
     printLetter();
     function printLetter() {
       for (var i = 0; i < splitWord.length; i++) {
@@ -37,73 +42,52 @@ $(document).ready(function() {
         $('.wordDisplay').append(document.createTextNode(letters[i]));
       }
       console.log(wordLength);
-      /*letters = letters.toString(); */
-      /*letters = letters.replace(/,/g, ""); */
-
-      // console.log(letters)
-      // console.log(splitWord);
     }
-
+  //disables enter button
+    $('#playerOne .submit').attr("disabled", "disabled");
   })
 
 //player two enters letter that gets compared to values of P1's word
   $('#playerTwo .submit').click(function() {
     var guessInput = $('#playerTwo .guess').val();
-    guess.push(guessInput)
 
-    var correct = false;
-    for (var i = 0; i < splitWord.length; i++) {
-      if (splitWord[i] === guessInput) {
-        letters[i] = guessInput;
-        $('.wordDisplay').html(letters);
-         correct = true;
+    if(guess.indexOf(guessInput) > -1) {
+      alert("same");
+      $('.message').html(`"${guessInput.toUpperCase()}" already guessed, please try again.`);
+    } else{
+      alert("no same continue");
+      guess.push(guessInput);
+
+      var correct = false;
+
+      for (var i = 0; i < splitWord.length; i++) {
+        if (splitWord[i] === guessInput) {
+
+          letters[i] = guessInput;
+          $('.wordDisplay').html(letters);
+           correct = true;
+        }
       }
-    }
-    if(correct) {
-      wordLength = wordLength - 1;
-      alert(wordLength);
+      if(correct) {
+        wordLength = wordLength - 1;
+        alert(wordLength);
 
-    } else {
-      lives = lives - 1
-      $('.lives').html(`You have ${lives} body parts left.`);
-      alert("you wrong!!");
-    }
+      } else {
+        lives = lives - 1
+        $('.lives').html(`You have ${lives} body parts left.`);
+        alert("you wrong!!");
+      }
 
-    if(wordLength == 0) {
-      alert("you win");
-    }
+      if(wordLength == 0) {
+        alert("you win");
+      }
 
-    if (lives == 0) {
-      $('.message').html(`You lost! Please try again.`);
-    }
+      if (lives == 0) {
+        $('.message').html(`You lost! Please try again.`);
+      }
+}
 
     $('#playerTwo .guess').val("");
   })
-  // var wordDisplay = $('.wordDisplay')
-  // wordDisplay = ""
-  // printLetter();
 
-  // function printLetter() {
-  //   for (var i = 0; i < splitWord.length; i++) {
-  //     $('.wordDisplay').html(letters);;
-  //   }
-  // }
-
-
-
-
-
-  //generate words randomly from array of pre-exisiting choices
-  // var randomWord = words[Math.floor(Math.random() * words.length)];
-  // console.log(randomWord);
-
-  //split each character from the randomly chosen word in an array
-  // var splitWord = words[0].split("");
-  // console.log(splitWord);
-  //
-  // //display each characters as _ on body
-  // for (var i = 0; i < splitWord.length; i++) {
-  //   splitWord[i] = "_ "
-  // }
-  // $('.display').html(splitWord);
 })
