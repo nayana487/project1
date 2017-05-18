@@ -9,7 +9,7 @@ $(document).ready(function() {
   var lives = 6 ;
   var playerOneScore = 0;
   var playerTwoScore = 0;
-  var category = ["Disney Movie", "Car Brand", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chain", "Soda", "Candy"]
+  var category = ["Disney Movie", "Car Brand", "Breakfast Cereal", "WDI-16 Students", "Asian Countries", "Fast Food Chain", "Soda", "Candy", "Horror Movie", "Science Fiction Character"]
 
 
 //gamestart scores
@@ -75,17 +75,18 @@ $(document).ready(function() {
     var guessInput = $('#playerTwo .guess').val();
     var guessLowerCase = guessInput.toLowerCase();
 
+  //player must input a letter
     if(guessLowerCase == "") {
       $('.message').html(`Input cannot be blank.`);
     } else {
 
-$('.message').html(``);
+      $('.message').html(``);
 
   //same letter input can't be use twice by comparing number of indexOf. returns -1 for empty array.
-    if(guess.indexOf(guessLowerCase) > -1) {
-      $('.message').html(`"${guessInput.toUpperCase()}" already guessed, please try again.`);
-    } else{
-      guess.push(guessLowerCase);
+      if(guess.indexOf(guessLowerCase) > -1) {
+        $('.message').html(`"${guessInput.toUpperCase()}" already guessed, please try again.`);
+        } else{
+          guess.push(guessLowerCase);
 
     //letter is compared to array of word. if letter exists: display, if not: lose one life.
       var correct = false;
