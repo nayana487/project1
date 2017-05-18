@@ -33,11 +33,16 @@ $(document).ready(function() {
     $('#playerTwo .submit').prop("disabled", false);
     $('.message').html("");
     $('.lives').html(`You have ${lives} body parts.`);
+    categoryRandom();
   });
 
 //generate category randomly
-  var randomCategory = category[Math.floor(Math.random() * category.length)];
-  $('#showcategory').html(`The category is ${randomCategory}.`);
+  categoryRandom();
+  function categoryRandom() {
+    var randomCategory = category[Math.floor(Math.random() * category.length)];
+    $('#showcategory').html(`The category is ${randomCategory}.`);
+  }
+
 
 //show lives at gamestart
   $('.lives').html(`You have ${lives} body parts.`);
