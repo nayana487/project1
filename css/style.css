@@ -67,6 +67,11 @@ input {
   margin-right: 50px;
 }
 
+.submit:hover {
+  background-color: #00009a;
+  transition: all 0.5s ease;
+}
+
 .category {
   font-family: 'Arvo', serif;
   border-bottom: 5px dashed black;
@@ -144,6 +149,11 @@ input {
   padding: 15px;
   width: 120px;
   letter-spacing: 1px;
+}
+
+.reset:hover{
+  background-color: #cc0000;
+  transition: all 0.5s ease;
 }
 
 .scoreboard {
