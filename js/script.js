@@ -18,7 +18,21 @@ $(document).ready(function() {
 
 //reset game
   $('.reset').click(function() {
-  location.reload();
+     words = [];
+     letters = [];
+     guess = [];
+     guesses = [];
+     splitWord = [];
+     wordLength = [];
+     lives = 6 ;
+
+    $(".wordDisplay").html("");
+    $('#playerOne .input').val("");
+    $('#playerTwo .guess').val("");
+    $('#playerOne .submit').prop("disabled", false);
+    $('#playerTwo .submit').prop("disabled", false);
+    $('.message').html("");
+    $('.lives').html(`You have ${lives} body parts.`);
   });
 
 //generate category randomly
@@ -61,17 +75,22 @@ $(document).ready(function() {
     var guessInput = $('#playerTwo .guess').val();
     var guessLowerCase = guessInput.toLowerCase();
 
+    if(guessLowerCase == "") {
+      $('.message').html(`Input cannot be blank.`);
+    } else {
+
+$('.message').html(``);
+
   //same letter input can't be use twice by comparing number of indexOf. returns -1 for empty array.
     if(guess.indexOf(guessLowerCase) > -1) {
-      // alert("same");
       $('.message').html(`"${guessInput.toUpperCase()}" already guessed, please try again.`);
     } else{
-      // alert("not same continue");
       guess.push(guessLowerCase);
 
     //letter is compared to array of word. if letter exists: display, if not: lose one life.
       var correct = false;
       var letterNum = 0;
+
       for (var i = 0; i < splitWord.length; i++) {
         if (splitWord[i] === guessLowerCase) {
           letters[i] = guessLowerCase;
@@ -82,12 +101,10 @@ $(document).ready(function() {
       }
       if(correct) {
         wordLength = wordLength - letterNum;
-        // alert(wordLength);
 
       } else {
         lives = lives - 1
         $('.lives').html(`You have ${lives} body parts left!`);
-        // alert("you wrong!!");
       }
 
       if(wordLength == 0) {
@@ -100,22 +117,12 @@ $(document).ready(function() {
         $('.message').html(`Player One wins!`);
         playerOneScore = playerOneScore + 1;
         $('.scorenum1').html(playerOneScore);
+        $('#playerTwo .submit').attr("disabled", "disabled");
       }
     }
-
+}
     $('#playerTwo .guess').val("");
   })
-
-  // $('.reset').click(function() {
-  //   var words = [];
-  //   var letters = [];
-  //   var guess = [];
-  //   var guesses = [];
-  //   var splitWord;
-  //   var wordLength = 0;
-  //   var lives = 6 ;
-  // });
-
 
 
 })
